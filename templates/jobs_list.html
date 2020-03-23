@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <title>View Job</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="container">
+        <ul>
+            <li class="logout"><a id="nav" href="/logout">Logout</a></li>
+            <li class="Home"><a id="nav" href="/dashboard">Back</a></li>
+        </ul>
+       
+        <br>
+        <table id="table">
+          <tr>
+            <th>{{ job[0]['title'] }}</th>
+          </tr>
+          <tr>
+            <td>{{ job[0]['description'] }}</td>
+          </tr>
+          <tr>
+            <td>Location: {{ job[0]['location'] }}</td>
+          </tr>
+          <tr>
+            <td>Posted by {{ job[0]['first_name'] }} {{ job[0]['last_name'] }}</td>
+          </tr>
+          <tr>
+            <td>Posted on {{ job[0]['created'].strftime('%m-%d-%Y') }}</td>
+          </tr>
+        </table>
+        <form method="post" id="login_form" action="/join">
+              <input type="hidden"name="job_id" value=" {{ job[0]['job_id'] }}">
+              <input type="hidden"name="user_id" value=" {{ job[0]['user_id'] }}">
+              <button type="submit" class="submit">Add to my job</button>
+        </form>
+</div>      
+</body>
+</html>

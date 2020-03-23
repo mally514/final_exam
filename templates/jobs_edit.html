@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <title>USer Quotes</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="container">
+        <ul>
+            <li class="logout"><a id="nav" href="/logout">Logout</a></li>
+            <li class="Home"><a id="nav" href="/dashboard">Back</a></li>
+        </ul>
+       
+        <br>
+        <h1>Edit Your job posting</h1>
+         <form method="POST" action="/update">
+          <input type="hidden" name="id" value="{{ edit_job[0]['id'] }}"> 
+       Title:  <input type="text" placeholder="Enter Title" name="title" value="{{ edit_job[0]['title'] }}"> 
+          
+        Description: <input type="text" placeholder="Enter Description" name="description" value = "{{ edit_job[0]['description'] }}" >
+          
+            Location:  <input type="text" placeholder="Enter Location" name="location" value="{{ edit_job[0]['location'] }}"> </td>
+           <button type="submit" class="submit">Submit</button>
+          </form>
+</div>      
+</body>
+</html>

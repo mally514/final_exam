@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <title>Add A Job</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="container">
+        <ul>
+            <li><a>Add a Job</a></li>
+            <li class="logout"><a id="nav" href="/logout">Logout</a></li>
+            <li class="Home"><a id="nav" href="/dashboard">Back</a></li>
+        </ul>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <br>
+                <div class="alert">
+                  <span class="closebtn">&times;</span>  
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %} 
+        {% endwith %}
+        <br>
+        <form method="POST" action="/add">
+          <div class="container">
+            <label for="title"><b>Title</b></label>
+            <input type="text" placeholder="Enter Title" name="title" >
+
+            <label for="description"><b>Description</b></label>
+            <textarea type="text" placeholder="Enter Description" name="description" ></textarea>
+
+            <label for="location"><b>Location</b></label>
+            <input type="text" placeholder="Enter Location" name="location" >
+
+            <button type="submit" class="submit">Submit</button>
+          </div>
+        </form>
+</div>      
+<script type="text/javascript">
+    
+var close = document.getElementsByClassName("closebtn");
+var i;
+
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function(){
+    var div = this.parentElement;
+    div.style.opacity = "0";
+    setTimeout(function(){ div.style.display = "none"; }, 600);
+  }
+}
+
+</script>
+</body>
+</html>

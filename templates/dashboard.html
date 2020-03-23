@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <title>Handly Helper Dashboard</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="container">
+        <ul>
+            <li><a>Welcome, {{ user[0]['first_name'] }}!</a></li>
+            <li><a id="logout" href="/logout">Logout</a></li>
+            <li class="Home"><a id="nav" href="/addjob">Add a Job</a></li>
+        </ul>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <br>
+                <div class="alert">
+                  <span class="closebtn">&times;</span>  
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %} 
+        {% endwith %}
+        <br>
+        <table id="table">
+          <tr>
+            <th>Job</th>
+            <th>Location</th>
+            <th>Action</th>
+          </tr>
+           {% if not_joined %}
+                {% for list in not_joined %}
+                    <tr>
+                        <td>{{ list['title'] }}</td>
+                        <td>{{ list['location'] }}</td>
+                        <td>
+                            <a href="/job_list/{{ list['job_id'] }}">View</a><br><br>
+                            <form method="post" id="login_form" action="/join">
+                                  <input type="hidden"name="job_id" value="{{ list['job_id']}} ">
+                                  <input type="hidden"name="user_id" value="{{ list['user_id']}} ">
+                                  <button type="submit" class="add">Add</button>
+                            </form>
+                            <br>
+                            {% if list['user_id'] == user[0]['id'] %}
+                                  <a href="/edits/{{ list['job_id'] }}">Edit</a><br>
+                                <br>
+                                <form method="post" id="login_form" action="/delete">
+                                      <input type="hidden"name="job_id" value="{{ list['job_id']}} ">
+                                      <button type="submit" class="add">Cancel</button>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+        <hr>
+        <table id="table">
+          <tr>
+            <th>My Jobs</th>
+            <th> </th>
+          </tr>
+          <tr>
+             {% if all_job %}
+                    {% for list in all_job %}
+                    <tr>
+                        <td>{{ list['title'] }}</td>
+                        <td>
+                            <a href="/job_list/{{ list['job_id'] }}">View</a><br><br>
+                                <form method="post" id="login_form" action="/delete">
+                                      <input type="hidden"name="job_id" value="{{ list['job_id']}} ">
+                                      <button type="submit" class="add">Done</button>
+                                </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+          </tr>
+        </table>
+</div>      
+<script type="text/javascript">
+    
+var close = document.getElementsByClassName("closebtn");
+var i;
+
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function(){
+    var div = this.parentElement;
+    div.style.opacity = "0";
+    setTimeout(function(){ div.style.display = "none"; }, 600);
+  }
+}
+
+</script>
+</body>
+</html>
